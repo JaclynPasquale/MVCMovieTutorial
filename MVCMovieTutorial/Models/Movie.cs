@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 
@@ -26,6 +27,9 @@ namespace MVCMovieTutorial.Models
         [StringLength(5)]
         public string Rating { get; set; }
         public bool HasRazzie { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
+        
     }
 
     public class MovieDBContext : DbContext

@@ -13,10 +13,29 @@ namespace MVCMovieTutorial.Controllers
     public class MoviesController : Controller
     {
         private MovieDBContext db = new MovieDBContext();
+        private RatingDBContext rdb = new RatingDBContext();
 
-        // GET: Movies
-        public ActionResult Index(string searchString)
+        private decimal FindAverage(int id)
         {
+            var query = from m in rdb.Ratings
+                        where m.MovieID == id
+                        select m.Stars;
+            var ratings = query.ToList<int>();
+            return Convert.ToDecimal(ratings.Average());
+             
+        }
+        // GET: Movies
+        public ActionResult Index(string movieGenre, string searchString)
+        {
+            var GenreLst = new List<string>();
+
+            var GenreQry = from d in db.Movies
+                           orderby d.Genre
+                           select d.Genre;
+
+            GenreLst.AddRange(GenreQry.Distinct());
+            ViewBag.movieGenre = new SelectList(GenreLst);
+
             var movies = from m in db.Movies
                          select m;
 
@@ -25,7 +44,41 @@ namespace MVCMovieTutorial.Controllers
                 movies = movies.Where(s => s.Title.Contains(searchString));
             }
 
+            if (!string.IsNullOrEmpty(movieGenre))
+            {
+                movies = movies.Where(x => x.Genre == movieGenre);
+            }
+
             return View(movies);
+        }
+
+            //return View(movies);
+            //var stars = new List<int>() { 1, 2, 3, 4, 5 };
+            //ViewBag.stars = new SelectList(stars); 
+            //var movies = from m in db.Movies
+            //             select m;
+
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    movies = movies.Where(s => s.Title.Contains(searchString));
+            //}
+
+            //return View(movies);
+        
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(int MovieRating, int MovieId)
+        {
+            Rating rating = new Rating();
+            rating.MovieID = MovieId;
+            rating.ApplicationUserID = User.Identity.Name;
+            rating.Stars = MovieRating;
+            rdb.Ratings.Add(rating);
+            rdb.SaveChanges();
+            return View();
+            
         }
 
         // GET: Movies/Details/5
@@ -54,12 +107,15 @@ namespace MVCMovieTutorial.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,ReleaseDate,Genre,Price,Rating,HasRazzie")] Movie movie)
+        public ActionResult Create([Bind(Include = "ID,Title,ReleaseDate,Genre,Price,Rating,HasRazzie")] Movie movie, int MovieRating)
         {
             if (ModelState.IsValid)
             {
                 db.Movies.Add(movie);
+
                 db.SaveChanges();
+                
+
                 return RedirectToAction("Index");
             }
 

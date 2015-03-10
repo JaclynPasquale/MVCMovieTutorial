@@ -12,10 +12,22 @@
     @using (Html.BeginForm())
     {
     <p>
-        Title: @Html.TextBox("SearchString") <br />
+        Genre: @Html.DropDownList("movieGenre", "All")
+        Title: @Html.TextBox("SearchString")
         <input type="submit" value="Filter" />
     </p>
     }
+    </p>
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+
+    @using (Html.BeginForm())
+    {
+    <p>
+        Title: @Html.TextBox("SearchString") <br />
+        <input type="submit" value="Filter" />
+    </p>
+    }*@
     
 </p>
 
@@ -40,6 +52,12 @@
         <th>
             @Html.DisplayNameFor(model => model.HasRazzie)
         </th>
+        <th>
+            My Star Rating
+        </th>
+        <th>
+            Average Rating
+        </th>
 
     </tr>
 
@@ -60,6 +78,28 @@
         <td>
             @Html.DisplayFor(modelItem => item.Rating)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasRazzie)
+        </td>
+        @*<td>
+            @using (Html.BeginForm())
+            {
+                @Html.EditorFor(model => model.Stars, new { AllowHtmlAttribute = new { @class = "form-control" } })
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+                <input type="submit" value="Rate Movie" />
+            }
+            
+            
+        </td>*@
+        @*<td>
+            @Html.DropDownList("stars", "Select Rating")
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.HasRazzie)
         </td>

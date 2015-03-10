@@ -182,11 +182,24 @@
     <Compile Include="Migrations\201503062238490_HasRazzie.Designer.cs">
       <DependentUpon>201503062238490_HasRazzie.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503091500102_stars.cs" />
+    <Compile Include="Migrations\201503091500102_stars.Designer.cs">
+      <DependentUpon>201503091500102_stars.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503091519443_ratings.cs" />
+    <Compile Include="Migrations\201503091519443_ratings.Designer.cs">
+      <DependentUpon>201503091519443_ratings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503092048157_renamestar.cs" />
+    <Compile Include="Migrations\201503092048157_renamestar.Designer.cs">
+      <DependentUpon>201503092048157_renamestar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\Ratings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -276,6 +289,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503062238490_HasRazzie.resx">
       <DependentUpon>201503062238490_HasRazzie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503091500102_stars.resx">
+      <DependentUpon>201503091500102_stars.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503091519443_ratings.resx">
+      <DependentUpon>201503091519443_ratings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503092048157_renamestar.resx">
+      <DependentUpon>201503092048157_renamestar.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
